@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import desc
 
 db = SQLAlchemy()
 
@@ -21,7 +22,12 @@ def connect_to_db(app, db_uri="postgresql:///games"):
 def example_data():
     """Create example data for the test database."""
     # FIXME: write a function that creates a game and adds it to the database.
-    print("FIXME")
+    for i in range(10):
+        name = f'Test Game {i}'
+        description = 'This is a test.'
+        game = Game(name = name, description = description)
+        db.session.add(game)
+    db.session.commit()
 
 
 if __name__ == '__main__':
